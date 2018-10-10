@@ -18,17 +18,29 @@ class Support extends Sprite {
         super();
         this.x = x;
         this.y = y;
-        this.setImage();
+        this.setImage(image);
     }
 }
 
-class Platform extends Support{
-    constructor(x, y, image){
-        super();
+class Platform extends Support {
+    constructor(x, y, image) {
+        super(x, y, image);
         this.name = "A platform";
         this.accelerateOnBounce = false;
     }
 }
 
-new Platform (0, 400, "start.png");
-new Platform (game.displayWidth - 48 * 2, 400, "finish.png");
+let startPlatform = new Platform(0, 400, "start.png");
+let finishPlatform = new Platform(game.displayWidth - 48 * 2, 400, "finish.png");
+
+class Slider extends Support {
+    constructor(x, y, angle) {
+        super(x, y, "slider.png");
+        this.name = "A sliding support";
+        this.angle = angle;
+        this.speed = 48;
+    }
+}
+
+new Slider(startPlatform.x + 48 * 3, startPlatform.y + 48, 0);
+new Slider(finishPlatform.x - 48 * 5, finishPlatform.y + 48, 180);
