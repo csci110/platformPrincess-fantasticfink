@@ -30,6 +30,7 @@ class Platform extends Support {
     }
 }
 
+new wall();
 let startPlatform = new Platform(0, 400, "start.png");
 let finishPlatform = new Platform(game.displayWidth - 48 * 2, 400, "finish.png");
 
@@ -120,3 +121,30 @@ class Door extends Sprite {
 let ann = new Princess();
 let exit = new Door();
 exit.name = "The Exit Door";
+
+class Spider extends Sprite {
+    constructor(x, y) {
+        super(x, y);
+        this.name = "Spooder";
+        this.setImage("spider.png");
+        this.x = x;
+        this.y = y;
+        //this.speed = 48;
+        this.accelerateOnBounce = false;
+        this.defineAnimation("creep", 0, 2);
+        this.playAnimation("creep", true);
+    }
+
+    handleGameLoop() {
+        if (this.y <= ann.y + 48) {
+            Spider.angle = 270;
+        }
+
+        if (this.y >= ann.y + 48) {
+            Spider.angle = 90;
+        }
+    }
+}
+
+new Spider(200, 225);
+new Spider(550, 200);
