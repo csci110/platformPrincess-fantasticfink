@@ -163,15 +163,43 @@ new Spider(200, 225);
 new Spider(550, 200);
 
 class Bat extends Sprite {
-    constructor(x, y) {
+    constructor(x, y, image) {
+        super(x, y, image);
         this.setImage("bat.png");
         this.accelerateOnBounce = false;
         this.name = "A scurry bat";
         this.defineAnimation("flap", 0, 1);
         this.playAnimation("flap", true);
+        this.attackSpeed = 300;
+    }
+
+    attack() {
+        this.speed = this.attackSpeed;
+        this.aimFor(ann.x, ann.y);
+
+    }
+
+    handleCollision(otherSprite) {
+        // Bats only care about collisons with Ann.
+        if (otherSprite === ann) {
+            ann.y = ann.y + 1;
+            // Spiders must hit Ann on top of her head.
+            //let horizontalOffset = this.x - otherSprite.x;
+            //let verticalOffset = this.y - otherSprite.y;
+            //if (Math.abs(horizontalOffset) < this.width / 2 &&
+            //Math.abs(verticalOffset) < 30) {
+            //otherSprite.y = otherSprite.y + 1; // knock Ann off platform
+        }
+        return false;
+    }
+    
+    handleGameLoop(){
+        if (Math.Random > 1){
+            this.attack();
+        }
+        //if bat is not attacking: hover
     }
 }
 
-let leftBat = new Bat (500,100);
-let rightBat = new Bat (500, 75);
-
+let leftBat = new Bat(200, 100);
+let rightBat = new Bat(500, 75);
