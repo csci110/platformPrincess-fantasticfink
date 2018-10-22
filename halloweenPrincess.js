@@ -1,15 +1,15 @@
 import { game, Sprite } from "./sgc/sgc.js";
 
-game.setBackground("Cemetery.png");
+//game.setBackground("Cemetery.png");
 game.setBackground("water.png", 500, 0);
 
 class wall extends Sprite {
     constructor() {
         super();
         this.name = "wall";
-        this.setImage("wall.png");
-        this.x = 0;
-        this.y = 175;
+        this.setImage("Cemetery.png");
+        //this.x = 0;
+        //this.y = 175;
         this.accelerateOnBounce = false;
     }
 }
@@ -32,8 +32,8 @@ class Platform extends Support {
 }
 
 new wall();
-let startPlatform = new Platform(0, 400, "start.png");
-let finishPlatform = new Platform(game.displayWidth - 48 * 2, 400, "finish.png");
+let startPlatform = new Platform(0, 400, "tileFloatLeft.png");
+let finishPlatform = new Platform(game.displayWidth - 48 * 2, 400, "tileFloatRight.png");
 
 class Slider extends Support {
     constructor(x, y, angle) {
@@ -45,7 +45,11 @@ class Slider extends Support {
 }
 
 new Slider(startPlatform.x + 48 * 3, startPlatform.y + 48, 0);
-new Slider(finishPlatform.x - 48 * 5, finishPlatform.y + 48, 180);
+new Slider(finishPlatform.x - 48 * 5, finishPlatform.y + 48, 90);
+new Platform(500, 100, "finish.png");
+new Platform(500, 600, "finish.png");
+new Platform(335, 400, "Skull.png");
+
 
 class Princess extends Sprite {
     constructor() {
@@ -98,7 +102,7 @@ class Princess extends Sprite {
     }
 
     handleBoundaryContact() {
-        game.end("Princess Ann has drowned.\n\nBetter luck next time.");
+        game.end("Princess Ann has fallen to her death.\n\nBetter luck next time.");
     }
 }
 
@@ -161,8 +165,8 @@ class Spider extends Sprite {
     }
 }
 
-new Spider(200, 225);
-new Spider(550, 200);
+//new Spider(200, 225);
+//new Spider(550, 200);
 
 class Bat extends Sprite {
     constructor(x, y, image) {

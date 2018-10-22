@@ -10,3 +10,6 @@ game.preloadImage("ann.png", 48, 48);
 game.preloadImage("bat.png", 48, 48);
 game.preloadImage("spider.png", 48, 48);
 game.preloadImage("Cemetery.png");
+game.preloadImage("tileFloatLeft.png");
+game.preloadImage("tileFloatRight.png");
+game.preloadImage("Skull.png");
