@@ -171,6 +171,12 @@ class Bat extends Sprite {
         this.defineAnimation("flap", 0, 1);
         this.playAnimation("flap", true);
         this.attackSpeed = 300;
+        this.speed = this.normalSpeed = 20;
+        this.angle = 45 + Math.round(Math.random() * 3) * 90;
+        this.angleTimer = 0;
+        this.x = this.startX = x;
+        this.y = this.startY = y;
+
     }
 
     attack() {
@@ -192,12 +198,30 @@ class Bat extends Sprite {
         }
         return false;
     }
-    
-    handleGameLoop(){
-        if (Math.Random > 1){
+
+    handleGameLoop() {
+        if (Math.Random < 0.001) {
             this.attack();
         }
         //if bat is not attacking: hover
+
+        /*every 3 seconds, increase the angle property of the bat either 
+        by 90 degrees or 180 degrees. Whether it changes by 90 or 180 degrees 
+        depends on the flip of a coin: 50% of the time it does one 
+        rather than the other.*/
+
+    }
+
+    handleBoundaryContact() {
+        if (this.y < 0) {
+            this.y = 0;
+        }
+        
+        if (this.y > game.displayHeight){
+            //reset the bat's position to its starting position
+            this.speed = this.normalSpeed;
+            this.angle  = 225;
+        }
     }
 }
 
