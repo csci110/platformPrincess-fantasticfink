@@ -159,8 +159,9 @@ class Spider extends Sprite {
         return false;
     }
 }
-new Spider(200, 225);
-new Spider(550, 200);
+
+//new Spider(200, 225);
+//new Spider(550, 200);
 
 class Bat extends Sprite {
     constructor(x, y, image) {
@@ -189,12 +190,6 @@ class Bat extends Sprite {
         // Bats only care about collisons with Ann.
         if (otherSprite === ann) {
             ann.y = ann.y + 1;
-            // Spiders must hit Ann on top of her head.
-            //let horizontalOffset = this.x - otherSprite.x;
-            //let verticalOffset = this.y - otherSprite.y;
-            //if (Math.abs(horizontalOffset) < this.width / 2 &&
-            //Math.abs(verticalOffset) < 30) {
-            //otherSprite.y = otherSprite.y + 1; // knock Ann off platform
         }
         return false;
     }
@@ -203,25 +198,30 @@ class Bat extends Sprite {
         if (Math.Random < 0.001) {
             this.attack();
         }
+
         //if bat is not attacking: hover
+        if (this.speed === this.normalSpeed) {
 
-        /*every 3 seconds, increase the angle property of the bat either 
-        by 90 degrees or 180 degrees. Whether it changes by 90 or 180 degrees 
-        depends on the flip of a coin: 50% of the time it does one 
-        rather than the other.*/
+            // start a 5-second timer
+            let now = game.getTime(); // now is current time
+            if (now - this.angleTimer > 5) { // if 5 seconds have elapsed since reset
+                this.angleTimer = now; // reset timer
+                if (Math.random() < 0.5) this.angle = this.angle + 90; //turn 90 degrees
+                if (Math.random() > 0.5) this.angle = this.angle + 180; //turn 180 degrees
+            }
 
+        }
     }
 
     handleBoundaryContact() {
         if (this.y < 0) {
             this.y = 0;
         }
-        
-        if (this.y > game.displayHeight){
-            //reset the bat's position to its starting position
-            this.speed = this.normalSpeed;
-            this.angle  = 225;
-        }
+
+        this.x = this.startX;
+        this.y = this.startY;
+        this.speed = this.normalSpeed;
+        this.angle = 225;
     }
 }
 
