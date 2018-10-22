@@ -48,7 +48,7 @@ new Slider(startPlatform.x + 48 * 3, startPlatform.y + 48, 0);
 new Slider(finishPlatform.x - 48 * 5, finishPlatform.y + 48, 90);
 new Platform(500, 100, "finish.png");
 new Platform(500, 600, "finish.png");
-new Platform(335, 400, "Skull.png");
+new Platform(415, 445, "skullx.png");
 
 
 class Princess extends Sprite {
