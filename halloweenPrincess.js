@@ -58,24 +58,65 @@ class Slider extends Support {
     }
 }
 
-new Slider(startPlatform.x + 48 * 3, startPlatform.y + 48, 0);
-new Slider(finishPlatform.x - 48 * 5, finishPlatform.y + 48, 90);
-new Platform(500, 100, "finish.png");
-new Platform(500, 600, "finish.png");
-new skull(415, 445, "skullx.png");
-new skull(0, 568, "skullx.png");
+class crate extends Sprite {
+    constructor() {
+        super();
+        this.name = "crate";
+        this.setImage("Crate.png");
+        this.x = 75;
+        this.y = 300;
+        //this.accelerateOnBounce = false;
+        this.speed = 0;
+        this.isfalling = false;
+    }
+    
+        handleGameLoop() {
 
-for (i = 0, i > 18, i++) {
-    count = 0;
-    new skull(count + 0, 568, "skullx.png");
+        this.x = Math.max(5, this.x);
+
+        this.isFalling = false; // assume she is not falling unless proven otherwise
+        // Check directly below princess for supports
+        let supports = game.getSpritesOverlapping(this.x, this.y + this.height, this.width, 1, Support);
+        // Is there none, or is its *top* above the bottom of the princess?
+        if (supports.length === 0 || supports[0].y < this.y + this.height) {
+            this.isFalling = true; // she is falling so ...
+            this.y = this.y + 4; // simulate gravity
+        }
+    }
 }
 
+new crate;
+
+new Slider(startPlatform.x + 48 * 3, startPlatform.y + 48, 0);
+new Slider(finishPlatform.x - 48 * 5, finishPlatform.y + 48, 90);
+
+// Top skulls
+new skull(500, 100, "skullx.png");
+new skull(550, 100, "skullx.png");
+new skull(600, 100, "skullx.png");
+
+// Remove the following platform after skulls are along the bottom
+new Platform(500, 600, "finish.png");
+
+// Placement Skull
+new skull(400, 450, "skullx.png");
+
+// Bottom Skulls
+new skull(0, 568, "skullx.png");
+
+for (let i = 0; i >= 18; i++) {
+    new skull(0 + i * 32, 568, "skullx.png");
+}
+
+//for (let i = 0; i < 15; i = i + 1) {
+//    new Block(95 + i * 48, 400);
+//}
 
 class Princess extends Sprite {
     constructor() {
         super();
         this.setImage("ann.png");
-        this.x = 48;
+        this.x = 0;
         this.y = 300;
         this.speed = 0;
         this.speedWhenWalking = 125;
@@ -252,3 +293,5 @@ class Bat extends Sprite {
 
 let leftBat = new Bat(200, 100);
 let rightBat = new Bat(500, 75);
+
+

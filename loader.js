@@ -14,3 +14,4 @@ game.preloadImage("tileFloatLeft.png");
 game.preloadImage("tileFloatRight.png");
 game.preloadImage("Skull.png");
 game.preloadImage("skullx.png");
+game.preloadImage("Crate.png");
