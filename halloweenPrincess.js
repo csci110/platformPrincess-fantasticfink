@@ -31,6 +31,20 @@ class Platform extends Support {
     }
 }
 
+class skull extends Support {
+    constructor(x, y, image) {
+        super(x, y, image);
+        this.name = "A Deadly Skull";
+        this.accelerateOnBounce = false;
+    }
+
+    handleCollision(otherSprite) {
+        if (otherSprite === ann) {
+            game.end("Don't touch the skulls!");
+        }
+    }
+}
+
 new wall();
 let startPlatform = new Platform(0, 400, "tileFloatLeft.png");
 let finishPlatform = new Platform(game.displayWidth - 48 * 2, 400, "tileFloatRight.png");
@@ -48,7 +62,13 @@ new Slider(startPlatform.x + 48 * 3, startPlatform.y + 48, 0);
 new Slider(finishPlatform.x - 48 * 5, finishPlatform.y + 48, 90);
 new Platform(500, 100, "finish.png");
 new Platform(500, 600, "finish.png");
-new Platform(415, 445, "skullx.png");
+new skull(415, 445, "skullx.png");
+new skull(0, 568, "skullx.png");
+
+for (i = 0, i > 18, i++) {
+    count = 0;
+    new skull(count + 0, 568, "skullx.png");
+}
 
 
 class Princess extends Sprite {
