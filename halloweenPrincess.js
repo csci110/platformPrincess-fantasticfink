@@ -69,8 +69,8 @@ class crate extends Sprite {
         this.speed = 0;
         this.isfalling = false;
     }
-    
-        handleGameLoop() {
+
+    handleGameLoop() {
 
         this.x = Math.max(5, this.x);
 
@@ -81,6 +81,11 @@ class crate extends Sprite {
         if (supports.length === 0 || supports[0].y < this.y + this.height) {
             this.isFalling = true; // she is falling so ...
             this.y = this.y + 4; // simulate gravity
+        }
+
+        if (supports.length > 0 && supports[0] instanceof Slider) {
+            this.isfalling = false;
+
         }
     }
 }
@@ -95,22 +100,16 @@ new skull(500, 100, "skullx.png");
 new skull(550, 100, "skullx.png");
 new skull(600, 100, "skullx.png");
 
-// Remove the following platform after skulls are along the bottom
-new Platform(500, 600, "finish.png");
-
 // Placement Skull
 new skull(400, 450, "skullx.png");
 
 // Bottom Skulls
 new skull(0, 568, "skullx.png");
 
-for (let i = 0; i >= 18; i++) {
+for (let i = 0; i < 25; i++) {
     new skull(0 + i * 32, 568, "skullx.png");
 }
 
-//for (let i = 0; i < 15; i = i + 1) {
-//    new Block(95 + i * 48, 400);
-//}
 
 class Princess extends Sprite {
     constructor() {
@@ -150,8 +149,8 @@ class Princess extends Sprite {
         if (this.angle === 180 && this.speed > 0) {
             this.playAnimation("left");
         }
-        this.x = Math.max(5, this.x);
 
+        this.x = Math.max(5, this.x);
         this.isFalling = false; // assume she is not falling unless proven otherwise
         // Check directly below princess for supports
         let supports = game.getSpritesOverlapping(this.x, this.y + this.height, this.width, 1, Support);
@@ -159,6 +158,12 @@ class Princess extends Sprite {
         if (supports.length === 0 || supports[0].y < this.y + this.height) {
             this.isFalling = true; // she is falling so ...
             this.y = this.y + 4; // simulate gravity
+        }
+    }
+
+    handleCollision(otherSprite) {
+        if (otherSprite === skull) {
+            game.end("Don't touch the skulls!");
         }
     }
 
@@ -177,9 +182,8 @@ class Door extends Sprite {
     }
 
     handleCollision(otherSprite) {
-        if (otherSprite === ann) {
-            game.end("Congratulations!\n\nPrincess Ann can now pursue the" +
-                "\nstranger deeper into the castle!");
+        if (otherSprite === crate) {
+            game.end("Congratulations!\n\nYou got the box through the door!");
         }
     }
 }
@@ -293,5 +297,3 @@ class Bat extends Sprite {
 
 let leftBat = new Bat(200, 100);
 let rightBat = new Bat(500, 75);
-
-

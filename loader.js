@@ -13,5 +13,5 @@ game.preloadImage("Cemetery.png");
 game.preloadImage("tileFloatLeft.png");
 game.preloadImage("tileFloatRight.png");
 game.preloadImage("Skull.png");
-game.preloadImage("skullx.png");
+game.preloadImage("skullx.png", 32, 32);
 game.preloadImage("Crate.png");
