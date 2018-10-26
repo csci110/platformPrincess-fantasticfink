@@ -46,15 +46,15 @@ class skull extends Support {
 }
 
 new wall();
-let startPlatform = new Platform(0, 400, "tileFloatLeft.png");
-let finishPlatform = new Platform(game.displayWidth - 48 * 2, 400, "tileFloatRight.png");
+let startPlatform = new Platform(0, 300, "tileFloatLeft.png");
+let finishPlatform = new Platform(game.displayWidth - 48 * 2, 300, "tileFloatRight.png");
 
 class Slider extends Support {
     constructor(x, y, angle) {
         super(x, y, "slider.png");
         this.name = "A sliding support";
         this.angle = angle;
-        this.speed = 48;
+        this.speed = 48;                
     }
 }
 
@@ -63,8 +63,9 @@ class crate extends Sprite {
         super();
         this.name = "crate";
         this.setImage("Crate.png");
+        //this.x = 75;
         this.x = 75;
-        this.y = 300;
+        this.y = 100;
         //this.accelerateOnBounce = false;
         this.speed = 0;
         this.isfalling = false;
@@ -100,8 +101,10 @@ new skull(500, 100, "skullx.png");
 new skull(550, 100, "skullx.png");
 new skull(600, 100, "skullx.png");
 
-// Placement Skull
-new skull(400, 450, "skullx.png");
+// Placement Skulls
+new skull(400, 380, "skullx.png");
+//new skull(400, 482, "skullx.png");
+//new skull(432, 482, "skullx.png");
 
 // Bottom Skulls
 new skull(0, 568, "skullx.png");
@@ -116,7 +119,7 @@ class Princess extends Sprite {
         super();
         this.setImage("ann.png");
         this.x = 0;
-        this.y = 300;
+        this.y = 100;
         this.speed = 0;
         this.speedWhenWalking = 125;
         this.defineAnimation("left", 9, 11);
@@ -140,8 +143,15 @@ class Princess extends Sprite {
         }
     }
 
-    handleGameLoop() {
 
+    handleCollision(otherSprite) {
+        if (otherSprite === skull) {
+            game.end("Don't touch the skulls!");
+        }
+    }
+
+
+    handleGameLoop() {
         if (this.angle === 0 && this.speed > 0) {
             this.playAnimation("right");
         }
@@ -161,11 +171,6 @@ class Princess extends Sprite {
         }
     }
 
-    handleCollision(otherSprite) {
-        if (otherSprite === skull) {
-            game.end("Don't touch the skulls!");
-        }
-    }
 
     handleBoundaryContact() {
         game.end("Princess Ann has fallen to her death.\n\nBetter luck next time.");
